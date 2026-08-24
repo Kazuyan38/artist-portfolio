@@ -123,10 +123,24 @@ p{text-wrap:pretty;}
       linear-gradient(to bottom, rgba(4,6,11,0) 62%, var(--ink) 99%);
   }
 }
+/* Below 900px there's no room to run text and crystal side by side, and
+   the old approach (full-bleed canvas behind full-height text, darkened
+   with a scrim) still let the crystal show through right where the copy
+   sat, making both illegible. Instead the crystal is demoted to its own
+   band pinned to the bottom of the hero — .hero's min-height keeps the
+   section tall even though .hero-inner's own content is short, so that
+   band is genuine empty space, not an overlay. Text and crystal no
+   longer occupy the same pixels at all. */
+@media (max-width:899px){
+  .hero{display:block;}
+  #heroCanvas{inset:auto 0 0 0;height:min(50vh,420px);}
+  .hero-scrim{background:linear-gradient(to bottom, rgba(4,6,11,0) 0%, rgba(4,6,11,0) 68%, var(--ink) 99%);}
+}
 .hero-inner{position:relative;z-index:2;width:var(--shell);margin-inline:auto;
   padding-block:clamp(112px,18vh,168px) clamp(96px,14vh,132px);
   display:grid;grid-template-columns:minmax(0,1fr);}
 @media (min-width:900px){ .hero-inner{grid-template-columns:minmax(0,min(56ch,600px)) 1fr;} }
+@media (max-width:899px){ .hero-inner{padding-block:clamp(84px,15vh,116px) 16px;} }
 
 .hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:22px;}
 .hero h1{
@@ -385,7 +399,7 @@ html.is-loading,html.is-loading body{overflow:hidden;}
     <div class="hero-copy">
       <p class="eyebrow">3DCG · Generative Systems · Computational Research</p>
       <h1>The structure <em>behind</em> the image.</h1>
-      <p class="lede">A practice moving between Blender, Python and the browser — cinematic music videos, generative orchestral scores, conversational AI, and agent-based models of the social world. Everything here ships as something you can actually run.</p>
+      <p class="lede">A practice moving between Blender, Python and the browser — music videos, generative scores, conversational AI, agent-based models. Everything here ships as something you can run.</p>
       <div class="hero-cta">
         <a class="btn btn-solid" href="#work">See the work <span class="arw" aria-hidden="true">→</span></a>
         <a class="btn btn-line" href="#contact">Start a conversation</a>
@@ -399,7 +413,7 @@ html.is-loading,html.is-loading body{overflow:hidden;}
   <div class="band-head reveal">
     <p class="eyebrow">Selected work</p>
     <h2>Six pieces, four mediums, one question.</h2>
-    <p>Each of these started as a question that didn't belong to a single field — and had to be built to be answered. Thumbnails are drawn live in your browser; stills and video are available on request.</p>
+    <p>Each of these started as a question that didn't belong to a single field. Thumbnails render live in your browser; stills and video, on request.</p>
   </div>
   <div class="work-grid" id="workGrid"></div>
 </section>
@@ -416,8 +430,7 @@ html.is-loading,html.is-loading body{overflow:hidden;}
     <div class="about-copy reveal">
       <p class="eyebrow">Practice</p>
       <h2>One method, five disciplines.</h2>
-      <p>I work in <b>Blender 5.1</b> and <b>Python</b> on pieces that sit between fields. A four-minute orchestral score written in <b>mido</b> becomes a 6,720-frame EEVEE render. A conversation with Natsume Sōseki becomes a WebSocket audio pipeline with a SQLite memory. A question about whether student loans actually matter becomes an agent-based model with bootstrap confidence intervals and a peer-reviewed PDF.</p>
-      <p>The aesthetic stays consistent even when the medium doesn't: dark grounds, emissive objects, cold light with a single warm rim. I don't build toward photorealistic daylight. I build toward the moment a structure becomes visible — a city made entirely of gears, the Milky Way seen from inside a room, a crystal you can see through but never quite see.</p>
+      <p>I work in <b>Blender 5.1</b> and <b>Python</b> on pieces that sit between fields — a four-minute score written in <b>mido</b> becomes a 6,720-frame EEVEE render; a conversation with Natsume Sōseki becomes a WebSocket audio pipeline with its own memory. The aesthetic stays constant across all of it: dark grounds, emissive objects, cold light with a single warm rim — built toward the moment a structure becomes visible, not toward daylight.</p>
       <div class="stats">
         <div class="stat"><b>7</b><span>Cinematic MVs</span></div>
         <div class="stat"><b>5</b><span>Research models</span></div>
@@ -493,33 +506,33 @@ html.is-loading,html.is-loading body{overflow:hidden;}
   <div class="band-head reveal">
     <p class="eyebrow">Method</p>
     <h2>Five steps, in this order, every time.</h2>
-    <p>The order matters — it's the only thing that keeps a piece from becoming decoration. Each stage borrows its discipline's way of asking.</p>
+    <p>The order matters: skip a step and the piece becomes decoration.</p>
   </div>
   <ol class="method" style="list-style:none;margin:0;padding:0">
     <li class="method-step reveal">
       <span class="num">01</span><span class="field">Philosophy</span>
       <div class="what"><h4>Frame the question</h4>
-        <p>Decide what is actually being asked before anything is modelled. If the question can be answered with a picture alone, it wasn't the question.</p></div>
+        <p>Decide what's actually being asked before anything gets modelled, scored, or coded.</p></div>
     </li>
     <li class="method-step reveal">
       <span class="num">02</span><span class="field">Physics</span>
       <div class="what"><h4>Build the mechanism</h4>
-        <p>Gears, orbits, light falloff, entropy, credit constraints. The structure has to hold together on its own before it is lit.</p></div>
+        <p>Gears, orbits, entropy, credit constraints — the structure holds together before it's ever lit.</p></div>
     </li>
     <li class="method-step reveal">
       <span class="num">03</span><span class="field">Literature</span>
       <div class="what"><h4>Give it a narrative</h4>
-        <p>A cut, a run, a phone call, a sentence. Time is the material that turns a mechanism into something a person can sit through.</p></div>
+        <p>A cut, a run, a phone call: time turns a mechanism into something to sit through.</p></div>
     </li>
     <li class="method-step reveal">
       <span class="num">04</span><span class="field">AI</span>
       <div class="what"><h4>Let the machine explore</h4>
-        <p>Latent search, generated variation, simulated agents. The machine proposes far more than I would; I keep the few that survive.</p></div>
+        <p>Latent search and simulated agents propose far more than I would; I keep what survives.</p></div>
     </li>
     <li class="method-step reveal">
       <span class="num">05</span><span class="field">Aesthetics</span>
       <div class="what"><h4>Composite, grade, cut to length</h4>
-        <p>Cold key, warm rim, near-black ground. Then the render budget and the viewport frame rate get the final vote.</p></div>
+        <p>Cold key, warm rim, near-black ground — then the render budget gets the final vote.</p></div>
     </li>
   </ol>
 </section>
@@ -528,7 +541,7 @@ html.is-loading,html.is-loading body{overflow:hidden;}
   <div class="contact reveal">
     <p class="eyebrow">Contact</p>
     <h2>If you have a question that doesn't fit one field.</h2>
-    <p>Open to music videos, installation work, generative systems, and research visualisation — commissions and collaborations alike.</p>
+    <p>Open to music videos, installation work, generative systems, and research visualisation.</p>
     <div class="contact-row">
       <a href="mailto:hello@example.com">hello@example.com</a>
       <a href="#">Instagram</a>
