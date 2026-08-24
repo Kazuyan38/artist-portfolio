@@ -541,9 +541,9 @@ var loaderHidden=false;
 function hideLoader(){
   if(loaderHidden) return;
   loaderHidden=true;
-  /* held long enough to see the crystal actually trace itself in
-     (the draw animation completes its first pass around 1000ms) */
-  var wait=Math.max(0,1700-(performance.now()-loaderShownAt));
+  /* held through a full draw-in/hold/fade cycle of the crystal (2.4s loop)
+     rather than cutting it off mid-gesture */
+  var wait=Math.max(0,2800-(performance.now()-loaderShownAt));
   setTimeout(function(){
     document.documentElement.classList.remove('is-loading');
     if(!loaderEl) return;
@@ -552,7 +552,7 @@ function hideLoader(){
     setTimeout(function(){ if(loaderEl.parentNode) loaderEl.parentNode.removeChild(loaderEl); },700);
   },wait);
 }
-setTimeout(hideLoader,3400);
+setTimeout(hideLoader,4200);
 window.addEventListener('load',function(){ setTimeout(hideLoader,150); });
 
 /* ================= nav ================= */
