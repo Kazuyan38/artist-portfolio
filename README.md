@@ -1,5 +1,7 @@
 # Noumena Atelier — portfolio
 
+**公開URL: https://kazuyan38.github.io/artist-portfolio/**
+
 単一 HTML 完結のポートフォリオ。`index.html` をダブルクリックで開く。サーバ不要・オフライン動作・外部リクエストゼロ。
 
 ## ヒーローの結晶
