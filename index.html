@@ -513,7 +513,7 @@ html.is-loading,html.is-loading body{overflow:hidden;}
       <h3>Computational Research</h3>
       <div class="chips">
         <span class="chip">Gale–Shapley market design</span><span class="chip">MTE (Heckman–Vytlacil)</span>
-        <span class="chip">Credit-constraint regime mapping</span><span class="chip">Bootstrap CI</span>
+        <span class="chip">Credit-constraint regime mapping</span><span class="chip">Bootstrap confidence intervals</span>
         <span class="chip">Headless-print PDF pipeline</span>
       </div>
     </div>
@@ -883,12 +883,12 @@ var WORKS=[
   { name:'Does It Matter?', tag:'Computational Social Science', art:4,
     note:'An agent-based model that refuses to give a straight answer.',
     desc:'An ABM asking whether student financial aid actually changes lives — and finding that the answer flips sign depending on the credit-constraint regime you assume. Enrolment is chosen endogenously via McFadden random-utility, marginal effects are separated with an MTE curve, and four generations of transmission are tracked. The honest finding is the identification problem itself: the plausible band for Japan straddles the reversal.',
-    spec:['Python · NumPy','McFadden discrete choice','MTE (Heckman–Vytlacil)','Bootstrap CI','Markdown → PDF'] },
+    spec:['Python · NumPy','McFadden discrete choice','MTE (Heckman–Vytlacil)','Bootstrap confidence intervals','Markdown → PDF'] },
 
   { name:'Talent Match', tag:'Market Design × Economic Modelling', art:1,
     note:'What if admission matched talent to need — nothing else?',
     desc:'A market-design study asking what happens if university admission were reassigned by Gale–Shapley stable matching, with financial background removed entirely. Allocation runs through three regimes — pure sort, serial dictatorship, deferred acceptance — against a complementarity production function calibrated across five ability tiers. The headline effect isn’t reshuffling between tiers: it’s recovering enrolment lost to financial barriers outright, and low-income, high-ability admission to elite tracks rises from 35% to 44%.',
-    spec:['Python · NumPy','Gale–Shapley (1962)','PAM complementarity production','Monte Carlo CI','Markdown → PDF'] }
+    spec:['Python · NumPy','Gale–Shapley (1962)','PAM complementarity production','Monte Carlo confidence intervals','Markdown → PDF'] }
 ];
 
 var grid=document.getElementById('workGrid');
