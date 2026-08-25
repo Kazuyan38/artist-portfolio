@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kazuyan38.github.io/artist-portfolio/sitemap.xml
