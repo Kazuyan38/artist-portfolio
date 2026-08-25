@@ -1339,6 +1339,28 @@ else setTimeout(bootHero,50);
 var Q={ scale: COARSE?0.50:0.72, min:0.34, max: COARSE?0.80:1.30 };
 var perf={acc:0,n:0,last:0};
 
+var heroCopyEl=null, heroShift=0;
+
+/* The crystal is pushed right by uShift so it clears the copy column and
+   sits centred in whatever empty width remains. uShift lives in the
+   shader's uv space, which is normalised by canvas HEIGHT, not width —
+   so a fixed shift constant only looked right on the aspect ratio it was
+   tuned on. Instead measure the actual gap next to .hero-copy each
+   resize and convert that pixel offset into uv units, so the crystal
+   lands in the same visual spot (centred in the leftover space) on any
+   window size or aspect ratio. */
+function computeHeroShift(){
+  if(window.innerWidth<900){ return 0; }
+  if(!heroCopyEl){ heroCopyEl=heroSection.querySelector('.hero-copy'); }
+  if(!heroCopyEl){ return 0; }
+  var heroRect=heroSection.getBoundingClientRect();
+  var copyRect=heroCopyEl.getBoundingClientRect();
+  if(heroRect.width<=0||heroRect.height<=0) return 0;
+  var freeCenterPx=((copyRect.right-heroRect.left)+heroRect.width)*0.5;
+  var canvasCenterPx=heroRect.width*0.5;
+  return (freeCenterPx-canvasCenterPx)/heroRect.height;
+}
+
 function sizeHero(){
   var rect=heroCanvas.getBoundingClientRect();
   var cw=rect.width||window.innerWidth, ch=rect.height||window.innerHeight;
@@ -1353,6 +1375,7 @@ function sizeHero(){
     hero.bloomB=makeFBO(gl,bw,bh);
     hero.w=w; hero.h=h;
   }
+  heroShift=computeHeroShift();
 }
 
 var mTX=0,mTY=0,mX=0,mY=0;
@@ -1378,7 +1401,7 @@ function renderHero(t){
   mX+=(mTX-mX)*0.055; mY+=(mTY-mY)*0.055;
   var raw=heroReadyAt?Math.min(1,(performance.now()-heroReadyAt)/2100):0;
   var intro=REDUCED?1:(1-Math.pow(1-raw,5));
-  var shift=(window.innerWidth>=900)?0.30:0.0;
+  var shift=heroShift;
 
   gl.bindFramebuffer(gl.FRAMEBUFFER,s.sceneFBO.fbo);
   gl.viewport(0,0,s.sceneFBO.w,s.sceneFBO.h);
